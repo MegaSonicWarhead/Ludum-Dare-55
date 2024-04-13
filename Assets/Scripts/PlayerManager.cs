@@ -22,7 +22,7 @@ public class PlayerManager : MonoBehaviour
     
     bool eBeingPressed = false;
     bool colliding = false;
-    private Collider2D collider;
+    private new Collider2D collider;        //collider that player collides with
 
 
 
@@ -39,7 +39,12 @@ public class PlayerManager : MonoBehaviour
         FullGlassImg.enabled = false;
         PoisonedGlassImg.enabled = false;
         FullPlateImg.enabled = false;
-        Debug.Log("Interaction Script is active");
+
+        if (inventoryObject != null)    //if player starts scene with somehting in inventory, that obj is visible in inventory
+        {
+            AddToInventory(inventoryObject);
+        }
+        Debug.Log("PlayerManager Script is active");
     }
 
     // Update is called once per frame
@@ -133,22 +138,31 @@ public class PlayerManager : MonoBehaviour
     void Interact()
     {
         if (collider.gameObject.tag == "#foodCrate")     //checks which object the player is colliding with
-        {
-                if (inventoryObject == "EmptyPlate")
+        {   
+            if (inventoryObject == "EmptyPlate")    //checks if player has Empty plate
             {
+                //replace Empty Plate with FullPlate
                 RemoveFromInventory(inventoryObject);
                 AddToInventory("FullPlate");
             }
-                //replace Empty Plate with FullPlate
-                Debug.Log("Preparing meal");
-                AddToInventory("FullPlate"); //testing purposes
         }
 
         if (collider.gameObject.tag == "#poisonCrate")     //checks which object the player is colliding with
         {
-                //choose between 2 poisons
-                //subtract QP
-                //check if inventory contains FullPlate or FullGlass and replace it with PoisonedFullPlate or PoisonedFullGlass
+            //choose between 2 poisons
+            //subtract QP
+            if (inventoryObject == "FullPlate")    //checks if player has full plate
+            {
+                //replace full Plate with PoisonedFullPlate
+                RemoveFromInventory(inventoryObject);
+                AddToInventory("PoisonedFullPlate");
+            }
+            if (inventoryObject == "FullGlass")    //checks if player has full glass
+            {
+                //replace Empty Plate with PoisonedFullGlass
+                RemoveFromInventory(inventoryObject);
+                AddToInventory("PoisonedFullGlass");
+            }
         }
 
         if (collider.gameObject.tag == "#throne")     //checks which object the player is colliding with
@@ -159,8 +173,12 @@ public class PlayerManager : MonoBehaviour
 
         if (collider.gameObject.tag == "#wine")     //checks which object the player is colliding with
         {
-                //check if EmptyGlass is in inventory
-                //change EmptyGlass to FullGlass in inventory
+            if (inventoryObject == "EmptyGlass")    //checks if player has EmptyGlass
+            {
+                //replace Empty Plate with FullGlass
+                RemoveFromInventory(inventoryObject);
+                AddToInventory("FullGlass");
+            }
         }
 
         if (collider.gameObject.tag == "#glass")     //checks which object the player is colliding with
@@ -171,7 +189,8 @@ public class PlayerManager : MonoBehaviour
 
         if (collider.gameObject.tag == "#plate")     //checks which object the player is colliding with
         {
-                //add emptyPlate to invetory
+            AddToInventory("EmptyPlate");
+            //add emptyPlate to invetory
         }
 
         if (collider.gameObject.tag == "#storageDoor")     //checks which object the player is colliding with
