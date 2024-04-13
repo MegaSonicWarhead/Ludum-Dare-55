@@ -25,7 +25,7 @@ public class SceneUI : MonoBehaviour
         // Check for interaction to load the next day
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (SceneManager.GetActiveScene().name == "ThroneRoom" && totalQuestPoints < questPointsNeeded)
+            if (SceneManager.GetActiveScene().name == "Throne Room" && totalQuestPoints < questPointsNeeded)
             {
                 LoadNextDay();
             }

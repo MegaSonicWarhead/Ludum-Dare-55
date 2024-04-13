@@ -7,7 +7,7 @@ public class CreditSceneScript : MonoBehaviour
 {
     public void Retry()
     {
-        SceneManager.LoadScene("ThroneRoom");
+        SceneManager.LoadScene("Throne Room");
     }
 
     public void MainMenu()
