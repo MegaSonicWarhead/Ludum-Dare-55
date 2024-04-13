@@ -226,7 +226,12 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      PlateObj_0: 1533435904157251222
+      PlateObj_1: 4406008211679544051
+      PlateObj_2: -8203017048944120603
+      PlateObj_3: -6826697779772750339
+      PlateObj_4: 9023682883177268027
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
