@@ -6,6 +6,11 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     public TMP_Text actionLabel;
+    public string inventoryObject;  //needs to be carried over to next scene
+
+    public int Days;    //needs to be carried over to next scene
+    public int QuestPoints; //needs to be carried over to next scene
+    public int EvidencePoints;  //needs to be carried over to next scene
 
     public UnityEngine.UI.Image EmptyPlateImg;
     public UnityEngine.UI.Image FullPlateImg;
@@ -14,7 +19,7 @@ public class PlayerManager : MonoBehaviour
     public UnityEngine.UI.Image FullGlassImg;
     public UnityEngine.UI.Image PoisonedGlassImg;
 
-    string inventoryObject;
+    
     bool eBeingPressed = false;
     bool colliding = false;
     private Collider2D collider;
@@ -26,6 +31,14 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         actionLabel.enabled = false;
+
+        EmptyPlateImg.enabled = false;
+        FullPlateImg.enabled = false;
+        PoisonedPlateImg.enabled = false;
+        EmptyGlassImg.enabled = false;
+        FullGlassImg.enabled = false;
+        PoisonedGlassImg.enabled = false;
+        FullPlateImg.enabled = false;
         Debug.Log("Interaction Script is active");
     }
 
