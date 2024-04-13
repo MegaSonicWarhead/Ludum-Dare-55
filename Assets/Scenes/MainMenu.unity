@@ -1073,7 +1073,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1542697215}
+      - m_Target: {fileID: 1542697214}
         m_TargetAssemblyTypeName: SceneUI, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1

@@ -4,34 +4,44 @@ using UnityEngine;
 
 public class KingScript : MonoBehaviour
 {
-    public GameObject questCompletedText; // Quest completed text prefab
-    private bool questCompleted;
+    private bool isAlive = true; // Flag to track if the king is alive
 
-    public void QuestCompleted()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        questCompleted = true;
-    }
-
-    public void ReceiveItem(GameObject item, string objectType)
-    {
-        // Implement logic for receiving item from the player
-        // For example, you can check the type of item and react accordingly
-        Debug.Log("Received item: " + item.name + " of type: " + objectType);
-        // Depending on your game, you might do something like this:
-        // if (objectType == "Food") { ... }
-        // else if (objectType == "Weapon") { ... }
-        // etc.
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F) && questCompleted)
+        if (other.CompareTag("Player"))
         {
-            // Give plate of food to the king
-            Instantiate(questCompletedText, transform.position, Quaternion.identity);
-            // Add quest points to the player's total
-            FindObjectOfType<QuestManagerScript>().CompleteQuest(2); // 2 points for completing the "Get Meal" quest
-            questCompleted = false; // Reset quest completed state
+            // Check if the player has delivered the meal
+            if (GameManager.instance.CheckInventory("Plate"))
+            {
+                // Determine if the king dies based on the assassination method used
+                if (GameManager.instance.CheckInventory("Poison"))
+                {
+                    // Use the poison and check the chance of killing the king
+                    if (Random.Range(0, 100) < 80) // 80% chance of killing the king
+                    {
+                        KillKing();
+                    }
+                }
+                else
+                {
+                    // If no assassination method used, the king cannot be killed
+                    Debug.Log("The king is not affected by the meal.");
+                }
+            }
+            else
+            {
+                Debug.Log("The player needs to deliver the meal to the king.");
+            }
         }
+    }
+
+    void KillKing()
+    {
+        // Set the king as dead
+        isAlive = false;
+        // Deactivate the king object
+        gameObject.SetActive(false);
+        // Transition to the credit scene
+        GameManager.instance.ChangeScene("CreditScene");
     }
 }

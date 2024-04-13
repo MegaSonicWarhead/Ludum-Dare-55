@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Kitchen.unity
     guid: 100dacab6cc8f4b4b9c33ec775be3057
   - enabled: 1
-    path: Assets/Scenes/Creddit.unity
+    path: Assets/Scenes/CreditScene.unity
     guid: 1b6f9b4a26387b54c8d45e5ac69f5b4b
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

@@ -1049,6 +1049,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 703775854}
   m_CullTransparentMesh: 1
+--- !u!1 &799331759 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1008840325093187508, guid: 0d474b20c0742c74b89dc54f73229d8a, type: 3}
+  m_PrefabInstance: {fileID: 1125872893}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &962091340
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,6 +1330,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202499236}
   m_CullTransparentMesh: 1
+--- !u!1 &1302342628
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1302342630}
+  - component: {fileID: 1302342629}
+  m_Layer: 0
+  m_Name: DoorManger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1302342629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302342628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d198bbfd906366b47933fe00bd72c682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneSelectionUI: {fileID: 799331759}
+--- !u!4 &1302342630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302342628}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.037276, y: 1.4738344, z: -1.0665625}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1304229161
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1508,10 +1558,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c12ab85bdc63241a7fbe1aa220e03a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionLabel: {fileID: 1708062217}
-  eBeingPressed: 0
-  colliding: 0
-  collider: {fileID: 0}
 --- !u!58 &1351534072
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1624,12 +1670,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionLabel: {fileID: 1708062217}
-  EmptyPlateImg: {fileID: 2127158322}
-  FullPlateImg: {fileID: 1538381799}
-  PoisonedPlateImg: {fileID: 1379854734}
-  EmptyGlassImg: {fileID: 1202499238}
-  FullGlassImg: {fileID: 347483520}
-  PoisonedGlassImg: {fileID: 454185630}
+  interactionDoorsScript: {fileID: 1302342629}
+  inventory: []
 --- !u!1 &1379854732
 GameObject:
   m_ObjectHideFlags: 0
@@ -2586,3 +2628,4 @@ SceneRoots:
   - {fileID: 118319101}
   - {fileID: 1780568167}
   - {fileID: 1351534070}
+  - {fileID: 1302342630}
