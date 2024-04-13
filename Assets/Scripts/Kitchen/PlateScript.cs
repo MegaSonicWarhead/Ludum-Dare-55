@@ -22,6 +22,8 @@ public class PlateScript : MonoBehaviour
         {
             // Player picks up the plate with food
             // You can implement this part based on your player's inventory system
+            // For example, you can add the plate with food to the player's inventory
+            // and set hasFood to false to indicate that the plate is no longer on the table
         }
     }
 }

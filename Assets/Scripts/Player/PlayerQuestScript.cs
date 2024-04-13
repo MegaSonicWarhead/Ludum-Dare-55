@@ -8,7 +8,7 @@ public class PlayerQuestScript : MonoBehaviour
 
     void Start()
     {
-        questManager = FindObjectOfType<QuestManagerScript>();
+        questManager = Object.FindFirstObjectByType<QuestManagerScript>();
     }
 
     void Update()
