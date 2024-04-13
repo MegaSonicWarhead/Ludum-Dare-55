@@ -14,8 +14,13 @@ public class KingScript : MonoBehaviour
             // Give plate of food to the king
             Instantiate(questCompletedText, transform.position, Quaternion.identity);
             // Add quest points to the player's total
-            FindObjectOfType<SceneUI>().CompleteQuest(2); // 2 points for completing the "Get Meal" quest
+            FindObjectOfType<QuestManagerScript>().CompleteQuest(2); // 2 points for completing the "Get Meal" quest
             questCompleted = false; // Reset quest completed state
         }
+    }
+
+    public void QuestCompleted()
+    {
+        questCompleted = true;
     }
 }
