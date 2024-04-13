@@ -6,18 +6,23 @@ using UnityEngine.SceneManagement;
 public class SceneUI : MonoBehaviour
 {
     private int currentQuest;
-    private int questAmount=2;
+    private int questAmount = 2;
+
     void Start()
     {
         currentQuest = Random.Range(1, questAmount); // Change 2 to the total number of quests available
-        SceneManager.LoadScene("ThroneRoom"); // Load the Throne Room scene when the game starts
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Throne Room");
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (SceneManager.GetActiveScene().name == "ThroneRoom")
+            if (SceneManager.GetActiveScene().name == "Throne Room")
             {
                 if (currentQuest == 1)
                 {
@@ -31,7 +36,7 @@ public class SceneUI : MonoBehaviour
             }
             else if (SceneManager.GetActiveScene().name == "Kitchen")
             {
-                SceneManager.LoadScene("ThroneRoom"); // Load the Throne Room scene when the player interacts with the door in the Kitchen
+                SceneManager.LoadScene("Throne Room"); // Load the Throne Room scene when the player interacts with the door in the Kitchen
             }
         }
     }
