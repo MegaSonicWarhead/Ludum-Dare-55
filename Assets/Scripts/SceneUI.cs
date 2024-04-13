@@ -26,11 +26,11 @@ public class SceneUI : MonoBehaviour
             {
                 if (currentQuest == 1)
                 {
-                    SceneManager.LoadScene("StorageRoom"); // Load the Storage Room scene for the "Get Meal" quest
+                    SceneManager.LoadScene("Storage Room"); // Load the Storage Room scene for the "Get Meal" quest
                 }
                 // Add more conditions for other quests here
             }
-            else if (SceneManager.GetActiveScene().name == "StorageRoom")
+            else if (SceneManager.GetActiveScene().name == "Storage Room")
             {
                 SceneManager.LoadScene("Kitchen"); // Load the Kitchen scene when the player interacts with the door in the Storage Room
             }
