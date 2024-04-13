@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorStorage
       objectReference: {fileID: 0}
+    - target: {fileID: 1008840325093187508, guid: 0d474b20c0742c74b89dc54f73229d8a, type: 3}
+      propertyPath: m_TagString
+      value: '#storageDoor'
+      objectReference: {fileID: 0}
     - target: {fileID: 5309543351018222568, guid: 0d474b20c0742c74b89dc54f73229d8a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.6574936
@@ -187,6 +191,10 @@ PrefabInstance:
     - target: {fileID: 1008840325093187508, guid: 0d474b20c0742c74b89dc54f73229d8a, type: 3}
       propertyPath: m_Name
       value: DoorThroneRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008840325093187508, guid: 0d474b20c0742c74b89dc54f73229d8a, type: 3}
+      propertyPath: m_TagString
+      value: '#throneRoomDoor'
       objectReference: {fileID: 0}
     - target: {fileID: 5309543351018222568, guid: 0d474b20c0742c74b89dc54f73229d8a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -246,7 +254,7 @@ GameObject:
   - component: {fileID: 677103730}
   m_Layer: 0
   m_Name: GlassObj
-  m_TagString: Untagged
+  m_TagString: '#interactable'
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -379,7 +387,7 @@ GameObject:
   - component: {fileID: 726050471}
   m_Layer: 0
   m_Name: WineObj
-  m_TagString: Untagged
+  m_TagString: '#interactable'
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -598,7 +606,7 @@ GameObject:
   - component: {fileID: 1110150937}
   m_Layer: 0
   m_Name: PlateObj
-  m_TagString: Untagged
+  m_TagString: '#interactable'
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -775,6 +783,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8f3499778f384549b8bb08cc7449382, type: 3}
+--- !u!1001 &6924105323700733968
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1732399190928010939, guid: 0c428ac44c087ef46a8a81546e28cab1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732399190928010939, guid: 0c428ac44c087ef46a8a81546e28cab1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732399190928010939, guid: 0c428ac44c087ef46a8a81546e28cab1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732399190928010939, guid: 0c428ac44c087ef46a8a81546e28cab1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732399190928010939, guid: 0c428ac44c087ef46a8a81546e28cab1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732399190928010939, guid: 0c428ac44c087ef46a8a81546e28cab1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732399190928010939, guid: 0c428ac44c087ef46a8a81546e28cab1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732399190928010939, guid: 0c428ac44c087ef46a8a81546e28cab1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732399190928010939, guid: 0c428ac44c087ef46a8a81546e28cab1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732399190928010939, guid: 0c428ac44c087ef46a8a81546e28cab1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379199772830192953, guid: 0c428ac44c087ef46a8a81546e28cab1, type: 3}
+      propertyPath: m_Name
+      value: GameBorders
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0c428ac44c087ef46a8a81546e28cab1, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -786,3 +851,4 @@ SceneRoots:
   - {fileID: 1110150939}
   - {fileID: 726050473}
   - {fileID: 677103732}
+  - {fileID: 6924105323700733968}
