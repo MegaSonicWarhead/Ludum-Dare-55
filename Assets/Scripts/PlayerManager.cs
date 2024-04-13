@@ -7,12 +7,10 @@ using UnityEngine.UIElements;
 
 public class PlayerManager : MonoBehaviour
 {
-    public string inventoryObject;  //needs to be carried over to next scene
-
-    bool recievingQuest = false;
+   bool recievingQuest = false;
     bool makingDecision = false;
 
-    int activeQuest;
+    int activeQuest;        //carry over
     string[] questName = new string[2] { "Prepare My Meal", "Get Me A Drink" };
     int[] questReward = new int[2] { 2, 1 };
     string[] questDescription = new string[2]
@@ -22,13 +20,15 @@ public class PlayerManager : MonoBehaviour
     public UnityEngine.UI.Image questPanel;
     public TMP_Text questTxt;
 
-    public int assasinationIndex;
+    public int assasinationIndex;   //carry over
     string[] assasinationMethod = new string[2] { "Lethal Poison", "Basic Poison" };   //Method Name
     int[,] assasinationStats = new int[4, 2] {   { 8,    4 },        //Method cost in QP (0)
                                                  { 80,   40 },      //Methods success chance (1)
                                                  { 1,    1},        //Method Evidence Points Min (2)
                                                  { 3,    3}  };     //Method Evidence Points Max (3)
     private int dailyQuests;
+
+    public string inventoryObject;  //needs to be carried over to next scene
     public int Days;    //needs to be carried over to next scene
     public int QuestPoints; //needs to be carried over to next scene
     public int EvidencePoints;  //needs to be carried over to next scene
@@ -52,19 +52,26 @@ public class PlayerManager : MonoBehaviour
     public TMP_Text InteractionNameTxt;
     public TMP_Text DialogueTxt;
 
-
     bool eBeingPressed = false;
     bool OneBeingPressed;
     bool TwoBeingPressed;
     bool colliding = false;
-    private new Collider2D collider;        //collider that player collides with
+    private Collider2D collider;        //collider that player collides with
 
     System.Random random = new System.Random();
 
 
+    
+
     // Start is called before the first frame update
+
     void Start()
     {
+    }
+    void OnEnable()
+    {
+
+   
         actionLabel.enabled = false;
 
         DialoguePanel.enabled = false;
@@ -90,6 +97,7 @@ public class PlayerManager : MonoBehaviour
 
         activeQuest = random.Next(0, 2);
     }
+
 
     // Update is called once per frame
     void Update()
@@ -140,17 +148,17 @@ public class PlayerManager : MonoBehaviour
         UpdateUI();
     }
 
+    IEnumerator DisableActionLabel(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        actionLabel.enabled = false;
+    }
+
     void OnTriggerEnter2D(Collider2D collider2d)
     {
         Debug.Log("Player has collided");
-        colliding = true;
+       colliding = true;
         collider = collider2d;
-
-        if (collider.gameObject.tag == "#foodCrate")     //checks which object the player is colliding with
-        {
-            actionLabel.text = "Press E to prepare meal";
-            actionLabel.enabled = true;
-        }
 
         if (collider.gameObject.tag == "#poisonCrate")     //checks which object the player is colliding with
         {
@@ -158,46 +166,45 @@ public class PlayerManager : MonoBehaviour
             actionLabel.text = "Press E to add poison";
             actionLabel.enabled = true;
         }
-
-        if (collider.gameObject.tag == "#throne")     //checks which object the player is colliding with
+        else if(collider.gameObject.tag == "#throne")     //checks which object the player is colliding with
         {
             actionLabel.text = "Press E to talk to the King";
             actionLabel.enabled = true;
         }
+        else if (collider.gameObject.tag == "#foodCrate")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
 
-        if (collider.gameObject.tag == "#wine")     //checks which object the player is colliding with
+
+        else if (collider.gameObject.tag == "#wine")     //checks which object the player is colliding with
         {
             actionLabel.text = "Press E to fill glass";
             actionLabel.enabled = true;
         }
 
-        if (collider.gameObject.tag == "#glass")     //checks which object the player is colliding with
+        else if (collider.gameObject.tag == "#glass")     //checks which object the player is colliding with
         {
             actionLabel.text = "Press E to pick up Glass";
             actionLabel.enabled = true;
         }
 
-        if (collider.gameObject.tag == "#plate")     //checks which object the player is colliding with
+        else if (collider.gameObject.tag == "#plate")     //checks which object the player is colliding with
         {
             actionLabel.text = "Press E to get plate";
             actionLabel.enabled = true;
         }
 
-        if (collider.gameObject.tag == "#storageDoor")     //checks which object the player is colliding with
+        else if (collider.gameObject.tag == "#storageDoor")     //checks which object the player is colliding with
         {
             actionLabel.text = "Press E to go to Storage";
             actionLabel.enabled = true;
         }
 
-        if (collider.gameObject.tag == "#kitchenDoor")     //checks which object the player is colliding with
+       else if (collider.gameObject.tag == "#kitchenDoor")     //checks which object the player is colliding with
         {
             actionLabel.text = "Press E to go to Kitchen";
-            actionLabel.enabled = true;
-        }
-
-        if (collider.gameObject.tag == "#throneRoomDoor")     //checks which object the player is colliding with
-        {
-            actionLabel.text = "Press E to go to Throne Room";
             actionLabel.enabled = true;
         }
     }
@@ -211,9 +218,8 @@ public class PlayerManager : MonoBehaviour
         recievingQuest = false;
 
         //label with description must dissapear
-        actionLabel.enabled = false;
+       // actionLabel.enabled = false;
     }
-
     void Interact()
     {
         if (collider.gameObject.tag == "#foodCrate")     //checks which object the player is colliding with
@@ -224,6 +230,23 @@ public class PlayerManager : MonoBehaviour
                 RemoveFromInventory(inventoryObject);
                 AddToInventory("FullPlate");
             }
+        }
+
+        // Other interactions...
+
+        if (collider.gameObject.tag == "#throneRoomDoor")     //checks which object the player is colliding with
+        {
+            // Save the current position
+            Vector3 currentPosition = transform.position;
+
+            // Change scene to throne room
+            SceneManager.LoadScene("Throne Room", LoadSceneMode.Single);
+
+            // Set the player's position in the new scene
+            StartCoroutine(SetPlayerPositionAfterDelay(currentPosition));
+
+            // Disable action label after 2 seconds
+            StartCoroutine(DisableActionLabel(2f));
         }
 
         if (collider.gameObject.tag == "#poisonCrate")     //checks which object the player is colliding with
@@ -244,7 +267,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        if (collider.gameObject.tag == "#throne")     //checks which object the player is colliding with
+        if (collider.gameObject.tag == "#throne")
         {
             //interact with king, by giving recieving quest or ending quest etc
             //subtract certain objects from inventory
@@ -285,7 +308,6 @@ public class PlayerManager : MonoBehaviour
                 }
             }
         }
-
         if (collider.gameObject.tag == "#wine")     //checks which object the player is colliding with
         {
             if (inventoryObject == "EmptyGlass")    //checks if player has EmptyGlass
@@ -295,14 +317,12 @@ public class PlayerManager : MonoBehaviour
                 AddToInventory("FullGlass");
             }
         }
-
         if (collider.gameObject.tag == "#glass")     //checks which object the player is colliding with
         {
             RemoveFromInventory(inventoryObject);
             AddToInventory("EmptyGlass");
             //Add Empty glass to inventory
         }
-
         if (collider.gameObject.tag == "#plate")     //checks which object the player is colliding with
         {
             RemoveFromInventory(inventoryObject);
@@ -314,6 +334,8 @@ public class PlayerManager : MonoBehaviour
         {
             //change scene to storage room
             SceneManager.LoadScene("Storage Room");
+            // Disable action label after 2 seconds
+            StartCoroutine(DisableActionLabel(2f));
         }
 
         if (collider.gameObject.tag == "#kitchenDoor")     //checks which object the player is colliding with
@@ -327,6 +349,15 @@ public class PlayerManager : MonoBehaviour
             //change scene to throne room
             SceneManager.LoadScene("Throne Room");
         }
+    }
+
+    private IEnumerator SetPlayerPositionAfterDelay(Vector3 position)
+    {
+        // Wait for 0.1 seconds
+        yield return new WaitForSeconds(0.1f);
+
+        // Set the player's position
+        transform.position = position;
     }
 
     void AddToInventory(string inventoryObj)
@@ -408,8 +439,20 @@ public class PlayerManager : MonoBehaviour
     void HideDialoguePanel()
     {
         DialoguePanel.enabled = false;
-        InteractionNameTxt.enabled = false;
-        DialogueTxt.enabled = false;
+        if (DialoguePanel != null)
+        {
+            DialoguePanel.enabled = false;
+        }
+
+        if (InteractionNameTxt != null)
+        {
+            InteractionNameTxt.enabled = false;
+        }
+
+        if (DialogueTxt != null)
+        {
+            DialogueTxt.enabled = false;
+        }
     }
 
     void CalculateAssassination()
