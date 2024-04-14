@@ -625,6 +625,7 @@ public class PlayerManager : MonoBehaviour
         QuestPoints = PlayerPrefs.GetInt("QuestPoints", QuestPoints);
         assasinationIndex = PlayerPrefs.GetInt("assasinationIndex", assasinationIndex);
         numberOfRuns = PlayerPrefs.GetInt("numberOfRuns", numberOfRuns);
+        EvidencePoints = PlayerPrefs.GetInt("EvidencePoints", EvidencePoints);
     }
 
     void SavePlayerData()
