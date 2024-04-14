@@ -7,15 +7,17 @@ using UnityEngine.UIElements;
 
 public class PlayerManager : MonoBehaviour
 {
-   bool recievingQuest = false;
+    bool recievingQuest = false;
     bool makingDecision = false;
 
     int activeQuest;        //carry over
     string[] questName = new string[2] { "Prepare My Meal", "Get Me A Drink" };
     int[] questReward = new int[2] { 2, 1 };
     string[] questDescription = new string[2]
-    { " a. Get empty Plate \n b. Prepare Meal \n c. Deliver Meal ",
-      " a. Get empty glass \n b. Pour wine \n c. Deliver wine " };
+    {
+        " a. Get empty Plate \n b. Prepare Meal \n c. Deliver Meal ",
+        " a. Get empty glass \n b. Pour wine \n c. Deliver wine "
+    };
 
     public UnityEngine.UI.Image questPanel;
     public TMP_Text questTxt;
@@ -61,7 +63,7 @@ public class PlayerManager : MonoBehaviour
     System.Random random = new System.Random();
 
 
-    
+
 
     // Start is called before the first frame update
 
@@ -70,8 +72,19 @@ public class PlayerManager : MonoBehaviour
     }
     void OnEnable()
     {
+        if (Days == 0)
+        {
+            questPanel.enabled = true;
+            questTxt.enabled = true;
+            QuestAssignment();
+        }
 
-   
+        activeQuest = random.Next(0, 2);
+
+        inventoryObject = PlayerPrefs.GetString("InventoryObject");
+
+        inventoryObject = null;
+
         actionLabel.enabled = false;
 
         DialoguePanel.enabled = false;
@@ -96,8 +109,25 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("PlayerManager Script is active");
 
         activeQuest = random.Next(0, 2);
+
+        inventoryObject = PlayerPrefs.GetString("InventoryObject");
+        // inventoryObject = PlayerPrefs.GetString("inventoryObject", null);
+    }
+    void QuestAssignment()
+    {
+        int[] questIndexes = GetRandomQuestIndexes();
+
+        activeQuest = questIndexes[0]; // Assign the first quest
+        questTxt.text = questName[activeQuest] + "\n" + questDescription[activeQuest];
     }
 
+    int[] GetRandomQuestIndexes()
+    {
+        List<int> indexes = new List<int> { 0, 1, 2, 3, 4 }; // Assuming you have 5 quests
+        indexes.Shuffle(); // Shuffle the list to get random indexes
+        return indexes.GetRange(0, 2).ToArray(); // Get the first 2 indexes after shuffling
+    }
+    
 
     // Update is called once per frame
     void Update()
@@ -145,6 +175,30 @@ public class PlayerManager : MonoBehaviour
             makingDecision = false;
         }
 
+        // Check if player pressed E on the book in the throne room to start the next day
+        if (Input.GetKeyDown(KeyCode.E) && colliding && collider.gameObject.tag == "#book")
+        {
+            // Start the next day
+            StartNextDay();
+        }
+
+        UpdateUI();
+    }
+    void StartNextDay()
+    {
+        // Increase the day count
+        Days++;
+
+        // Reset daily quest count
+        dailyQuests = 0;
+
+        // Reset assassination selection
+        assasinationIndex = -1;
+
+        // Get two random quests for the day
+        activeQuest = random.Next(0, 2);
+
+        // Update UI
         UpdateUI();
     }
 
@@ -218,7 +272,7 @@ public class PlayerManager : MonoBehaviour
         recievingQuest = false;
 
         //label with description must dissapear
-       // actionLabel.enabled = false;
+       //actionLabel.enabled = false;
     }
     void Interact()
     {
@@ -226,9 +280,14 @@ public class PlayerManager : MonoBehaviour
         {
             if (inventoryObject == "EmptyPlate")    //checks if player has Empty plate
             {
+                
                 //replace Empty Plate with FullPlate
                 RemoveFromInventory(inventoryObject);
                 AddToInventory("FullPlate");
+            }
+            else
+            {
+                Debug.Log("Ädd empty plate fisr");
             }
         }
 
@@ -325,17 +384,35 @@ public class PlayerManager : MonoBehaviour
         }
         if (collider.gameObject.tag == "#plate")     //checks which object the player is colliding with
         {
-            RemoveFromInventory(inventoryObject);
-            AddToInventory("EmptyPlate");
-            //add emptyPlate to invetory
+            if (inventoryObject != "EmptyPlate")
+            {
+                // The plate is not in the inventory, so add it
+                AddToInventory("EmptyPlate");
+                // Save the plate to PlayerPrefs
+                PlayerPrefs.SetString("inventoryObject", "EmptyPlate");
+                // Disable the plate object in the scene
+                collider.gameObject.SetActive(false);
+                Debug.Log("Plate picked up!"); ;
+            }
         }
 
         if (collider.gameObject.tag == "#storageDoor")     //checks which object the player is colliding with
         {
-            //change scene to storage room
-            SceneManager.LoadScene("Storage Room");
-            // Disable action label after 2 seconds
-            StartCoroutine(DisableActionLabel(2f));
+
+                    
+                // Save the current position
+                 Vector3 currentPosition = transform.position;
+
+                // Change scene to storage room
+                SceneManager.LoadScene("Storage Room");
+
+                // Set the player's position in the new scene
+                StartCoroutine(SetPlayerPositionAfterDelay(currentPosition));
+
+                // Disable action label after 2 seconds
+                StartCoroutine(DisableActionLabel(2f));
+            
+           
         }
 
         if (collider.gameObject.tag == "#kitchenDoor")     //checks which object the player is colliding with
@@ -363,6 +440,7 @@ public class PlayerManager : MonoBehaviour
     void AddToInventory(string inventoryObj)
     {
         inventoryObject = inventoryObj;
+        PlayerPrefs.SetString("InventoryObject", inventoryObject);
 
         if (inventoryObject == "EmptyGlass")
         {
@@ -438,7 +516,6 @@ public class PlayerManager : MonoBehaviour
 
     void HideDialoguePanel()
     {
-        DialoguePanel.enabled = false;
         if (DialoguePanel != null)
         {
             DialoguePanel.enabled = false;
@@ -492,3 +569,19 @@ public class PlayerManager : MonoBehaviour
 
 }
 
+public static class ListExtensions
+{
+    public static void Shuffle<T>(this IList<T> list)
+    {
+        System.Random rng = new System.Random();
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
+}
