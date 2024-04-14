@@ -67,6 +67,10 @@ public class PlayerManager : MonoBehaviour
 
     System.Random random = new System.Random();
 
+    string currentSceneName;
+    string CredditSceneName;
+    string MainMenuSceneName;
+
 
     // Start is called before the first frame update
     void Start()
@@ -76,8 +80,18 @@ public class PlayerManager : MonoBehaviour
 
     private void OnEnable()
     {
-        // Load saved data from PlayerPrefs on scene start
-        LoadPlayerData();
+        // Get the name of the currently active scene
+        currentSceneName = SceneManager.GetActiveScene().name;
+
+        // Define the name of your MainMenu scene
+        CredditSceneName = "Creddit";
+        MainMenuSceneName = "MainMenu";
+
+        if (currentSceneName != MainMenuSceneName)
+        {
+            // Load saved data from PlayerPrefs on scene start
+            LoadPlayerData();
+        }
 
         numberOfRuns = numberOfRuns + 1;
         Debug.Log("Number of runs: " + numberOfRuns);
@@ -169,13 +183,24 @@ public class PlayerManager : MonoBehaviour
             ShowQuestPanel();
         }
 
+        if (isKingAlive == false && OneBeingPressed == true) 
+        {
+            SceneManager.LoadScene("Creddit");
+        }
+
         UpdateUI();
     }
 
     void OnDestroy()
     {
-        // Save player data when the GameObject is destroyed (e.g., when changing scenes)
-        SavePlayerData();
+        // Check if the currently active scene is the MainMenu scene
+        if (currentSceneName != CredditSceneName)
+        {
+            // Save player data when the GameObject is destroyed (e.g., when changing scenes)
+            SavePlayerData();
+        }
+
+        
     }
 
     void OnTriggerEnter2D(Collider2D collider2d)
@@ -492,13 +517,19 @@ public class PlayerManager : MonoBehaviour
         if (successNum < assasinationStats[1, assasinationIndex])
         {
             InteractionNameTxt.text = "The King: ";
-            DialogueTxt.text = "GAH! \n \n 1. Oh no! My Liege!";
+            DialogueTxt.text = "GAH! \n \n 1. Ohhhhh noooooo! My Liege!";
             DialoguePanel.enabled = true;
             InteractionNameTxt.enabled = true;
             DialogueTxt.enabled = true;
             
             //Successful assasination
             isKingAlive = false;
+
+            Debug.Log("You were successful!");
+        }
+        else
+        {
+            Debug.Log("You were not successful in killing the king");
         }
 
         //calculate EP
@@ -551,9 +582,7 @@ public class PlayerManager : MonoBehaviour
     {
         DaysTxt.text = Days.ToString();
         QPTxt.text = QuestPoints.ToString();
-        //EPTxt.text = EvidencePoints.ToString();
-        EPTxt.text = activeQuest.ToString();
-        QPTxt.text = dailyQuests.ToString();
+        EPTxt.text = EvidencePoints.ToString();
     }
 
     void LoadPlayerData()
