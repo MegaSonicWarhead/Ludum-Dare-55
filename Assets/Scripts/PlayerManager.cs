@@ -72,31 +72,22 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     private void OnEnable()
     {
-        //if (EmptyPlateImg != null)
-        //{
-        //    EmptyPlateImg.enabled = false;
-        //}
-        //if (inventoryObject?.Equals("EmptyPlate") ?? false)
-        //{
-        //    Debug.Log("inventoryObject is: " + inventoryObject);
-        //}
-        // Instantiate quests and set their properties
+       
         Quest quest1 = gameObject.AddComponent<Quest>();
         quest1.SetQuest("Prepare My Meal", "a. Get empty Plate \n b. Prepare Meal \n c. Deliver Meal", 2, 1);
 
         Quest quest2 = gameObject.AddComponent<Quest>();
         quest2.SetQuest("Get Me A Drink", "a. Get empty glass \n b. Pour wine \n c. Deliver wine", 1, 1);
 
-        // Add quests to the quest manager
-        //questManager.quests = new Quest[] { quest1, quest2 };
-
-        // Load saved data from PlayerPrefs on scene start
-        LoadPlayerData();
+        
+            LoadPlayerData();
+        
+        
 
         numberOfRuns = numberOfRuns + 1;
         Debug.Log("Number of runs: " + numberOfRuns);
@@ -151,7 +142,8 @@ public class PlayerManager : MonoBehaviour
         }
         else { OneBeingPressed = false; }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) { OneBeingPressed = true; }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) { 
+            OneBeingPressed = true; }
         else { OneBeingPressed = false; }
 
         if (Input.GetKeyDown(KeyCode.Alpha2)) { TwoBeingPressed = true; }
@@ -307,13 +299,14 @@ public class PlayerManager : MonoBehaviour
                 AddToInventory("PoisonedFullGlass");
             }
         }
-
+        //hello
         if (collider.gameObject.tag == "#throne")     //checks which object the player is colliding with
         {
             //interact with king, by giving recieving quest or ending quest etc
             //subtract certain objects from inventory
-            //if (activeQuest == numberOfQuests + 1) && dailyQuests < 2)  //if player currently doesnt have a quest
-            if ( dailyQuests < 2)  //if player currently doesnt have a quest
+
+            //if ( dailyQuests < 2)  //if player currently doesnt have a quest
+            if ((activeQuest == numberOfQuests + 1) && (dailyQuests < 2) ) //if player currently doesnt have a quest
             {
                 RecieveQuest();
             }
@@ -492,9 +485,11 @@ public class PlayerManager : MonoBehaviour
 
     public void HideDialoguePanel()
     {
-        if (dialoguePanel != null)
+        if (DialoguePanel != null)
         {
-            dialoguePanel.enabled = false;
+            DialoguePanel.enabled = false;
+            InteractionNameTxt.enabled = false;
+            DialogueTxt.enabled = false;
         }
         else
         {
@@ -563,9 +558,9 @@ public class PlayerManager : MonoBehaviour
 
         questPanel.enabled = false;
         questTxt.enabled = false;
-
-        activeQuest = numberOfQuests + 1;
         QuestPoints = QuestPoints + questReward[activeQuest];
+        activeQuest = numberOfQuests + 1;
+       
 
         if (dailyQuests < 2)
         {
