@@ -11,21 +11,25 @@ public class PlayerManager : MonoBehaviour
     bool makingDecision = false;
 
     int activeQuest;        //carry over
-    string[] questName = new string[2] { "Prepare My Meal", "Get Me A Drink" };
+    string[] questName = new string[5] { "Prepare My Meal", "Get Me A Drink", "Tuck king into Bed", "Amuse the king", "Fix Chandelier" };
     int[] questReward = new int[2] { 2, 1 };
-    string[] questDescription = new string[2]
+    string[] questDescription = new string[5]
     { " a. Get empty Plate \n b. Prepare Meal \n c. Deliver Meal ",
-      " a. Get empty glass \n b. Pour wine \n c. Deliver wine " };
+      " a. Get empty glass \n b. Pour wine \n c. Deliver wine " ,
+    " a. Make Bed \n b. Fetch King \n c. Tuck into bed",
+    " a. Fetch Knives \n b.Perform Tricks ",
+    " a. Fetch Ladder and tools \n b. Set up Ladder \n c. Fix Chandelier \n d. Bring ladder and tools back \n e.Report to king"};
 
     public UnityEngine.UI.Image questPanel;
     public TMP_Text questTxt;
 
     public int assasinationIndex;   //carry over
-    string[] assasinationMethod = new string[2] { "Lethal Poison", "Basic Poison" };   //Method Name
-    int[,] assasinationStats = new int[4, 2] {   { 8,    4 },        //Method cost in QP (0)
-                                                 { 80,   40 },      //Methods success chance (1)
-                                                 { 1,    1},        //Method Evidence Points Min (2)
-                                                 { 3,    3}  };     //Method Evidence Points Max (3)
+    string[] assasinationMethod = new string[12] { "Lethal Poison", "Basic Poison", "Lethal Poison", "Basic Poison", "Experienced Assasin", "Intermediate Assasin", "Beginner Assasin", "Do it yourself", "Fancy Trick", "Simple Trick", "Missing Bolt", "Loose Bolt" };   //Method Name
+
+    int[,] assasinationStats = new int[4, 12] {   { 8,    4,   7,  3,  7,  4,  2,  0,  4,  3,  4,  1  },        //Method cost in QP (0)
+                                                 { 80,   40,   70, 30, 70, 40, 20, 50, 60, 40, 60, 30 },      //Methods success chance (1)
+                                                 { 1,    1,    3,  3,  0,  2,  3,  6,  4,  6,  4,  2  },    //Method Evidence Points Min (2)
+                                                 { 3,    3,    4, 4,   2,  4,  5,  8,  7,  8,  7  ,4  }  };     //Method Evidence Points Max (3)
     private int dailyQuests;
 
     public string inventoryObject;  //needs to be carried over to next scene
@@ -237,7 +241,96 @@ public class PlayerManager : MonoBehaviour
             actionLabel.text = "Press E to prepare meal";
             actionLabel.enabled = true;
         }
-
+        else if (collider.gameObject.tag == "#ExperiencedAssasin")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == "#IntermediateAssasin")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == "#BeginnerAssasin")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == "#DoItYourself")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == "#FancyTrick")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == "#SimpleTrick")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == "#MissingBolt")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == "#LooseBolt")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == "#MakeBed")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == "#FetchKing")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == "#TuckIntoBed")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == "#FetchKnives")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == "#PerformTricks")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == "#FetchLadderAndTools")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == "#SetUpLadder")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "PressE to prepare meal";
+            actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == "#FixChandelier")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == "#Bring ladderAndToolsBack")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == "#ReportToking")     //checks which object the player is colliding with
+        {
+            actionLabel.text = "Press E to prepare meal";
+            actionLabel.enabled = true;
+        }
 
         else if (collider.gameObject.tag == "#wine")     //checks which object the player is colliding with
         {
