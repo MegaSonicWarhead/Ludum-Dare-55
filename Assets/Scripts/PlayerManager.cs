@@ -10,6 +10,8 @@ public class PlayerManager : MonoBehaviour
     bool recievingQuest = false;
     bool makingDecision = false;
 
+
+
     int activeQuest;        //carry over
     string[] questName = new string[5] { "Prepare My Meal", "Get Me A Drink", "Tuck king into Bed", "Amuse the king", "Fix Chandelier" };
     int[] questReward = new int[2] { 2, 1 };
@@ -32,7 +34,7 @@ public class PlayerManager : MonoBehaviour
                                                  { 3,    3,    4, 4,   2,  4,  5,  8,  7,  8,  7  ,4  }  };     //Method Evidence Points Max (3)
     private int dailyQuests;
 
-    public string inventoryObject;  //needs to be carried over to next scene
+    public static string inventoryObject = "Empty";  //needs to be carried over to next scene
     public int Days;    //needs to be carried over to next scene
     public int QuestPoints; //needs to be carried over to next scene
     public int EvidencePoints;  //needs to be carried over to next scene
@@ -64,6 +66,41 @@ public class PlayerManager : MonoBehaviour
     private Collider2D collider;        //collider that player collides with
 
     System.Random random = new System.Random();
+
+
+    public string InventoryObject
+    {
+        get { return inventoryObject; }
+        set { inventoryObject = value; }
+    }
+
+
+
+    public void InteractWithKitchen()
+    {
+        if (inventoryObject == "Empty")
+        {
+            inventoryObject = "Food";
+            Debug.Log("Picked up food from the kitchen.");
+        }
+        else
+        {
+            Debug.Log("Inventory is not empty. Cannot pick up food.");
+        }
+    }
+
+    public void InteractWithStorageRoom()
+    {
+        if (inventoryObject == "EmptyPlate")
+        {
+            inventoryObject = "Empty";
+            Debug.Log("Dropped empty plate in the storage room.");
+        }
+        else
+        {
+            Debug.Log("Inventory does not contain an empty plate. Cannot drop anything.");
+        }
+    }
 
     void Start()
     {
