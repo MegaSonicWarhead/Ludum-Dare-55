@@ -30,7 +30,7 @@ public class DataPreserverScript : MonoBehaviour
 
     public void GetData()
     {
-        inventoryObjectData = Player.inventoryObject;
+        inventoryObjectData = PlayerManager.inventoryObject;
         DaysData = Player.Days;
         QuestPointsData = Player.QuestPoints;
         EvidencePointsData = Player.EvidencePoints;

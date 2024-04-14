@@ -16,6 +16,7 @@ public class KitchenInteract : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             playerManager.InteractWithKitchen();
+            //
         }
     }
 }

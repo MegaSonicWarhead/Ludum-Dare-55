@@ -169,6 +169,12 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            QuestManager.Instance.GiveObjectToKing();
+        }
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             eBeingPressed = true;
@@ -397,6 +403,10 @@ public class PlayerManager : MonoBehaviour
         {
             actionLabel.text = "Press E to go to Kitchen";
             actionLabel.enabled = true;
+        }
+        else if (collider.gameObject.tag == ("#ThroneRoomDoor"))
+        {
+            CheckInventoryObject();
         }
     }
 
