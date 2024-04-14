@@ -27,9 +27,10 @@ public class CreditManager : MonoBehaviour
             {
                 // Access variables from the PlayerManager script
                 int days = playerManager.Days;
+                int daysHalved = days / 2;
                 int evidencePoints = playerManager.EvidencePoints;
 
-                DaysTxt.text = "Days Taken to kill the King: " + days.ToString();
+                DaysTxt.text = "Days Taken to kill the King: " + daysHalved.ToString();
                 EPTxt.text = "Total Evidence Points: " + evidencePoints.ToString();
 
                 if (evidencePoints > 10)

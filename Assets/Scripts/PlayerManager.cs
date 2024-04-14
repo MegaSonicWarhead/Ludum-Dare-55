@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
 {
     public string inventoryObject;      //needs to be carried over to next scene
     public int dailyQuests;             //needs to be carried over
-    public int Days;                    //needs to be carried over to next scene
+    public int Days = 0;                    //needs to be carried over to next scene
     public int QuestPoints;             //needs to be carried over to next scene
     public int EvidencePoints;          //needs to be carried over to next scene
     public int numberOfRuns = 0;        //carry over
@@ -26,16 +26,12 @@ public class PlayerManager : MonoBehaviour
     { " a. Get empty Plate \n b. Prepare Meal \n c. Deliver Meal ",
       " a. Get empty glass \n b. Pour wine \n c. Deliver wine " };
 
-    
-
     public int assasinationIndex;   //carried over
     string[] assasinationMethod = new string[2] { "Lethal Poison", "Basic Poison" };   //Method Name
     int[,] assasinationStats = new int[4, 2] {   { 8,    4 },        //Method cost in QP (0)
-                                                 { 80,   40 },      //Methods success chance (1)
+                                                 { 60,   25},      //Methods success chance (1)
                                                  { 1,    1},        //Method Evidence Points Min (2)
-                                                 { 3,    3}  };     //Method Evidence Points Max (3)
-
-
+                                                 { 4,    3}  };     //Method Evidence Points Max (3)
 
     public UnityEngine.UI.Image questPanel;
     public TMP_Text questTxt;
@@ -166,16 +162,54 @@ public class PlayerManager : MonoBehaviour
             assasinationIndex = 0; //Lethal Poison
             makingDecision = false;
 
-            if (recievingQuest)
+            if (QuestPoints >= assasinationStats[0, assasinationIndex])
             {
-                ShowQuestPanel();
-                recievingQuest = false;
+            QuestPoints = QuestPoints - assasinationStats[0, assasinationIndex];       //subtract QP
+                if (inventoryObject == "FullPlate")    //checks if player has full plate
+                {
+                    //replace full Plate with PoisonedFullPlate
+                    RemoveFromInventory(inventoryObject);
+                    AddToInventory("PoisonedFullPlate");
+                }
+                if (inventoryObject == "FullGlass")    //checks if player has full glass
+                {
+                    //replace Empty Plate with PoisonedFullGlass
+                    RemoveFromInventory(inventoryObject);
+                    AddToInventory("PoisonedFullGlass");
+                }
+            }
+            else
+            {
+                assasinationIndex = 3;      //sets assasination index to none
+                Debug.Log("Not enough QP.");
             }
         }
         if (TwoBeingPressed && makingDecision)
         {
             assasinationIndex = 1; //Basic Poison
             makingDecision = false;
+
+            if (QuestPoints >= assasinationStats[0, assasinationIndex])
+            {
+            QuestPoints = QuestPoints - assasinationStats[0, assasinationIndex];       //subtract QP
+                if (inventoryObject == "FullPlate")    //checks if player has full plate
+                {
+                    //replace full Plate with PoisonedFullPlate
+                    RemoveFromInventory(inventoryObject);
+                    AddToInventory("PoisonedFullPlate");
+                }
+                if (inventoryObject == "FullGlass")    //checks if player has full glass
+                {
+                    //replace Empty Plate with PoisonedFullGlass
+                    RemoveFromInventory(inventoryObject);
+                    AddToInventory("PoisonedFullGlass");
+                }
+            }
+            else
+            {
+                assasinationIndex = 3;      //sets assasination index to none
+                Debug.Log("Not enough QP.");
+            }
         }
 
         if (activeQuest != 3 || activeQuest !=  (numberOfQuests + 1))
@@ -296,19 +330,6 @@ public class PlayerManager : MonoBehaviour
         if (collider.gameObject.tag == "#poisonCrate")     //checks which object the player is colliding with
         {
             AssasinationSelection("Poison"); //choose between 2 poisons
-            QuestPoints = QuestPoints - assasinationStats[assasinationIndex, 0];       //subtract QP
-            if (inventoryObject == "FullPlate")    //checks if player has full plate
-            {
-                //replace full Plate with PoisonedFullPlate
-                RemoveFromInventory(inventoryObject);
-                AddToInventory("PoisonedFullPlate");
-            }
-            if (inventoryObject == "FullGlass")    //checks if player has full glass
-            {
-                //replace Empty Plate with PoisonedFullGlass
-                RemoveFromInventory(inventoryObject);
-                AddToInventory("PoisonedFullGlass");
-            }
         }
 
         if (collider.gameObject.tag == "#throne")     //checks which object the player is colliding with
@@ -324,11 +345,13 @@ public class PlayerManager : MonoBehaviour
                 if (inventoryObject == "FullPlate")
                 {
                     CompleteQuest("FullPlate");
+                    activeQuest = numberOfQuests + 1;
                 }
                 else if (inventoryObject == "PoisonedFullPlate")
                 {
                     CalculateAssassination();
                     CompleteQuest("PoisonedFullPlate");
+                    activeQuest = numberOfQuests + 1;
                 }
             }
             if (activeQuest == 1)
@@ -336,14 +359,16 @@ public class PlayerManager : MonoBehaviour
                 if (inventoryObject == "FullGlass")
                 {
                     CompleteQuest("FullGlass");
+                    activeQuest = numberOfQuests + 1;
                 }
                 else if (inventoryObject == "PoisonedFullGlass")
                 {
                     CalculateAssassination();
                     CompleteQuest("PoisonedFullGlass");
+                    activeQuest = numberOfQuests + 1;
                 }
             }
-            else if (dailyQuests > 2)
+            else if (dailyQuests >= 2)
             {
                 openDialogue = true;
 
@@ -398,10 +423,9 @@ public class PlayerManager : MonoBehaviour
         }
 
         if (collider.gameObject.tag == "#book")
-        {
-            //sets daily Quests to 0
-            dailyQuests = 0;
-            Days = Days + 1;
+        {            
+            dailyQuests = 0;        //sets daily Quests to 0
+            Days ++;               //incriments days by 1
             activeQuest = numberOfQuests + 1;   //removes current quest
             Debug.Log("Active quest is now " + (numberOfQuests + 1));
 
@@ -485,8 +509,8 @@ public class PlayerManager : MonoBehaviour
             int indexOne = 0;
             int indexTwo = 1;
             InteractionNameTxt.text = "Choose your Poison";
-            DialogueTxt.text = "1. " + assasinationMethod[indexOne] + " \n    Cost: " + assasinationStats[0, indexOne] + "QP \n     Success Chance: " + assasinationStats[indexOne, 1] + "% \n \n" +
-                                "2. " + assasinationMethod[indexTwo] + " \n    Cost: " + assasinationStats[0, indexTwo] + "QP \n     Success Chance: " + assasinationStats[indexTwo, 1] + "% ";
+            DialogueTxt.text = "1. " + assasinationMethod[indexOne] + " \n    Cost: " + assasinationStats[0, indexOne] + "QP \n     Success Chance: " + assasinationStats[1, indexOne] + "% \n \n" +
+                               "2. " + assasinationMethod[indexTwo] + " \n    Cost: " + assasinationStats[0, indexTwo] + "QP \n     Success Chance: " + assasinationStats[1, indexTwo] + "% ";
             DialoguePanel.enabled = true;
             InteractionNameTxt.enabled = true;
             DialogueTxt.enabled = true;
@@ -517,29 +541,32 @@ public class PlayerManager : MonoBehaviour
 
         //Calculate if successful
         int successNum = random.Next(0, 100);
-        if (successNum < assasinationStats[1, assasinationIndex])
+        if (successNum < assasinationStats[1, assasinationIndex])   //Successful assasination
         {
             InteractionNameTxt.text = "The King: ";
             DialogueTxt.text = "GAH! \n \n 1. Ohhhhh noooooo! My Liege!";
             DialoguePanel.enabled = true;
             InteractionNameTxt.enabled = true;
             DialogueTxt.enabled = true;
-            
-            //Successful assasination
-            isKingAlive = false;
 
-            Debug.Log("You were successful!");
+            //calculate EP
+            int EpAdded = random.Next(assasinationStats[2, assasinationIndex], assasinationStats[3, assasinationIndex]);
+            EvidencePoints = EvidencePoints + EpAdded;
+            Debug.Log("added " + EpAdded + " EP");
+
+            assasinationIndex = 2;
+
+            isKingAlive = false;
+            Debug.Log("Number: " + successNum + "You were successful in killing the king!");
         }
         else
         {
             Debug.Log("You were not successful in killing the king");
+            //calculate EP
+            int EpAdded = random.Next(assasinationStats[2, assasinationIndex], assasinationStats[3, assasinationIndex]);
+            assasinationIndex = 2;
+            EvidencePoints = EvidencePoints + EpAdded;
         }
-
-
-        //calculate EP
-        int EpAdded = random.Next(assasinationStats[2, assasinationIndex], assasinationStats[3, assasinationIndex]);
-        assasinationIndex = 2;
-        EvidencePoints = EvidencePoints + EpAdded;
     }
 
     void RecieveQuest()
@@ -573,60 +600,45 @@ public class PlayerManager : MonoBehaviour
         questPanel.enabled = false;
         questTxt.enabled = false;
 
-        activeQuest = numberOfQuests + 1;
         QuestPoints = QuestPoints + questReward[activeQuest];
 
         if (dailyQuests < 2)
         {
             activeQuest = random.Next(0, 2);
         }
-            
     }
 
     void UpdateUI()
     {
-        DaysTxt.text = Days.ToString();
+        int daysHalved = Days / 2;      //because days is adding 2 every time and i dont have time to fix
+        DaysTxt.text = daysHalved.ToString();
         QPTxt.text = QuestPoints.ToString();
         EPTxt.text = EvidencePoints.ToString();
     }
 
     void LoadPlayerData()
     {
-        // Load inventoryObject
-        if (PlayerPrefs.HasKey("InventoryObject"))
-        {
-            inventoryObject = PlayerPrefs.GetString("InventoryObject");
-            // You might want to update the UI here
-        }
-
-        // Load other variables
+        inventoryObject = PlayerPrefs.GetString("InventoryObject", inventoryObject);
+        dailyQuests = PlayerPrefs.GetInt("dailyQuests", dailyQuests);
         Days = PlayerPrefs.GetInt("Days", Days);
-        activeQuest = PlayerPrefs.GetInt("ActiveQuest", activeQuest);
+        activeQuest = PlayerPrefs.GetInt("activeQuest", activeQuest);
         QuestPoints = PlayerPrefs.GetInt("QuestPoints", QuestPoints);
-        EvidencePoints = PlayerPrefs.GetInt("EvidencePoints", EvidencePoints);
+        assasinationIndex = PlayerPrefs.GetInt("assasinationIndex", assasinationIndex);
+        numberOfRuns = PlayerPrefs.GetInt("numberOfRuns", numberOfRuns);
     }
 
     void SavePlayerData()
     {
         // Save inventoryObject
         PlayerPrefs.SetString("InventoryObject", inventoryObject);
-
         // Save other variables
-        PlayerPrefs.SetInt("DailyQuest", dailyQuests);
+        PlayerPrefs.SetInt("dailyQuests", dailyQuests);
         PlayerPrefs.SetInt("Days", Days);
-        PlayerPrefs.SetInt("ActiveQuest", activeQuest);
+        PlayerPrefs.SetInt("activeQuest", activeQuest);
         PlayerPrefs.SetInt("QuestPoints", QuestPoints);
         PlayerPrefs.SetInt("EvidencePoints", EvidencePoints);
         PlayerPrefs.SetInt("assasinationIndex", assasinationIndex);
-        PlayerPrefs.SetInt("NumberOfRuns", numberOfRuns);
-
-        // Convert boolean value to integer (0 or 1)
-        int makingDecisionInt = makingDecision ? 1 : 0;
-        int openDialogueInt = openDialogue ? 1 : 0;
-        // Save the integer value to PlayerPrefs
-        PlayerPrefs.SetInt("makingDecision", makingDecisionInt);
-        PlayerPrefs.SetInt("openDialogue", openDialogueInt);
-
+        PlayerPrefs.SetInt("numberOfRuns", numberOfRuns);
 
         // PlayerPrefs save to disk (not needed for immediate retrieval but for persistence)
         PlayerPrefs.Save();
