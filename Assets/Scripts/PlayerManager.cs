@@ -319,25 +319,25 @@ public class PlayerManager : MonoBehaviour
             {
                 RecieveQuest();
             }
-            else if (activeQuest == 0)
+            if (activeQuest == 0)
             {
                 if (inventoryObject == "FullPlate")
                 {
                     CompleteQuest("FullPlate");
                 }
-                else if (inventoryObject == "PoisonedFullPlate")
+                if (inventoryObject == "PoisonedFullPlate")
                 {
                     CompleteQuest("PoisonedFullPlate");
                     CalculateAssassination();
                 }
             }
-            else if (activeQuest == 1)
+            if (activeQuest == 1)
             {
                 if (inventoryObject == "FullGlass")
                 {
                     CompleteQuest("FullGlass");
                 }
-                else if (inventoryObject == "PoisonedFullGlass")
+                if (inventoryObject == "PoisonedFullGlass")
                 {
                     CompleteQuest("PoisonedFullGlass");
                     CalculateAssassination();
@@ -476,6 +476,8 @@ public class PlayerManager : MonoBehaviour
 
     void AssasinationSelection(string decisionType)
     {
+        makingDecision = true;
+
         if (decisionType == "Poison")
         {
             openDialogue = true;
@@ -511,6 +513,7 @@ public class PlayerManager : MonoBehaviour
     void CalculateAssassination()
     {
         System.Random random = new System.Random();
+        Debug.Log("calculating assasination");
 
         //Calculate if successful
         int successNum = random.Next(0, 100);
@@ -531,6 +534,8 @@ public class PlayerManager : MonoBehaviour
         {
             Debug.Log("You were not successful in killing the king");
         }
+
+        assasinationIndex = 2;
 
         //calculate EP
         int EpAdded = random.Next(assasinationStats[2, assasinationIndex], assasinationStats[3, assasinationIndex]);
