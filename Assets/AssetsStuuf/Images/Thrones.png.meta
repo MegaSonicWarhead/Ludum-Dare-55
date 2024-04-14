@@ -298,7 +298,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Thrones_0: -5424783115229871805
+      Thrones_1: 7234982786059009043
+      Thrones_2: 3488954906599753382
+      Thrones_3: -1833912382701012185
+      Thrones_4: 1125736795118399033
+      Thrones_5: -2162477588360745368
+      Thrones_6: -7471421242429958650
+      Thrones_7: 2989688636629650975
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

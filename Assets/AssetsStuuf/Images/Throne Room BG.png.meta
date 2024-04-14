@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Throne Room BG_0: 209820744024025598
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
