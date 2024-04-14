@@ -394,7 +394,19 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Character Animation Sheet_0: 6669654925912962044
+      Character Animation Sheet_1: -3268849052434594465
+      Character Animation Sheet_10: 705600305116882453
+      Character Animation Sheet_11: -7855702649762298557
+      Character Animation Sheet_2: 8233264668680755793
+      Character Animation Sheet_3: -7816339052000514967
+      Character Animation Sheet_4: -3283161345978889147
+      Character Animation Sheet_5: 8716540949430300794
+      Character Animation Sheet_6: 8810301146055280574
+      Character Animation Sheet_7: -7257567078060534448
+      Character Animation Sheet_8: 7839565020334065690
+      Character Animation Sheet_9: 7637847508094213487
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

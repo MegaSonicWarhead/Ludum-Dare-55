@@ -92,7 +92,7 @@ public class PlayerManager : MonoBehaviour
         numberOfRuns = numberOfRuns + 1;
         Debug.Log("Number of runs: " + numberOfRuns);
 
-        actionLabel.enabled = false;
+        //actionLabel.enabled = false;
 
         DialoguePanel.enabled = false;
         InteractionNameTxt.enabled = false;
@@ -311,8 +311,11 @@ public class PlayerManager : MonoBehaviour
 
         HideDialoguePanel();
 
-        //label with description must dissapear
-        actionLabel.enabled = false;
+        if (actionLabel != null)
+        {
+            //label with description must dissapear
+            actionLabel.enabled = false;
+        }
     }
 
     void Interact()
