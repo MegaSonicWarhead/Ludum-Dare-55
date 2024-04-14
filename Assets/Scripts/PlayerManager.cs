@@ -92,22 +92,27 @@ public class PlayerManager : MonoBehaviour
         numberOfRuns = numberOfRuns + 1;
         Debug.Log("Number of runs: " + numberOfRuns);
 
-        //actionLabel.enabled = false;
+        if (actionLabel != null)
+        {
+            //label with description must dissapear
+            actionLabel.enabled = false;
+            DialoguePanel.enabled = false;
+            InteractionNameTxt.enabled = false;
+            DialogueTxt.enabled = false;
 
-        DialoguePanel.enabled = false;
-        InteractionNameTxt.enabled = false;
-        DialogueTxt.enabled = false;
+            questPanel.enabled = false;
+            questTxt.enabled = false;
 
-        questPanel.enabled = false;
-        questTxt.enabled = false;
+            EmptyPlateImg.enabled = false;
+            FullPlateImg.enabled = false;
+            PoisonedPlateImg.enabled = false;
+            EmptyGlassImg.enabled = false;
+            FullGlassImg.enabled = false;
+            PoisonedGlassImg.enabled = false;
+            FullPlateImg.enabled = false;
+        }
 
-        EmptyPlateImg.enabled = false;
-        FullPlateImg.enabled = false;
-        PoisonedPlateImg.enabled = false;
-        EmptyGlassImg.enabled = false;
-        FullGlassImg.enabled = false;
-        PoisonedGlassImg.enabled = false;
-        FullPlateImg.enabled = false;
+        
 
         if (inventoryObject != null)    //if player starts scene with somehting in inventory, that obj is visible in inventory
         {
@@ -343,7 +348,7 @@ public class PlayerManager : MonoBehaviour
             {
                 RecieveQuest();
             }
-            if (activeQuest == 0)
+            else if (activeQuest == 0)
             {
                 if (inventoryObject == "FullPlate")
                 {
@@ -357,7 +362,7 @@ public class PlayerManager : MonoBehaviour
                     activeQuest = numberOfQuests + 1;
                 }
             }
-            if (activeQuest == 1)
+            else if (activeQuest == 1)
             {
                 if (inventoryObject == "FullGlass")
                 {
@@ -522,19 +527,28 @@ public class PlayerManager : MonoBehaviour
 
     void HideDialoguePanel()
     {
-        DialoguePanel.enabled = false;
-        InteractionNameTxt.enabled = false;
-        DialogueTxt.enabled = false;
+        if (DialoguePanel != null)
+        {
+            DialoguePanel.enabled = false;
+            InteractionNameTxt.enabled = false;
+            DialogueTxt.enabled = false;
 
-        openDialogue = false;
+            openDialogue = false;
+        }
     }
+        
+        
 
     void ShowQuestPanel()
     {
-        questTxt.text = questName[activeQuest] + "\n" + questDescription[activeQuest];
+        if (questTxt != null)
+        {
+            questTxt.text = questName[activeQuest] + "\n" + questDescription[activeQuest];
 
-        questPanel.enabled = true;
-        questTxt.enabled = true;
+            questPanel.enabled = true;
+            questTxt.enabled = true;
+        }
+        
     }
 
     void CalculateAssassination()
@@ -614,9 +628,14 @@ public class PlayerManager : MonoBehaviour
     void UpdateUI()
     {
         int daysHalved = Days / 2;      //because days is adding 2 every time and i dont have time to fix
-        DaysTxt.text = daysHalved.ToString();
-        QPTxt.text = QuestPoints.ToString();
-        EPTxt.text = EvidencePoints.ToString();
+        
+        if (DaysTxt != null)
+        {
+            DaysTxt.text = daysHalved.ToString();
+            QPTxt.text = QuestPoints.ToString();
+            EPTxt.text = EvidencePoints.ToString();
+        }
+        
     }
 
     void LoadPlayerData()
@@ -628,6 +647,7 @@ public class PlayerManager : MonoBehaviour
         QuestPoints = PlayerPrefs.GetInt("QuestPoints", QuestPoints);
         assasinationIndex = PlayerPrefs.GetInt("assasinationIndex", assasinationIndex);
         numberOfRuns = PlayerPrefs.GetInt("numberOfRuns", numberOfRuns);
+        EvidencePoints = PlayerPrefs.GetInt("EvidencePoints", EvidencePoints);
     }
 
     void SavePlayerData()

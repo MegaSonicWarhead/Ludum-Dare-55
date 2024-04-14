@@ -20,6 +20,8 @@ public class StartButton : MonoBehaviour
 
     public void OnClick()
     {
+        PlayerPrefs.DeleteAll();
         SceneManager.LoadScene("Throne Room");
+        
     }
 }
