@@ -14,10 +14,8 @@ public class PlayerManager : MonoBehaviour
     string[] questName = new string[2] { "Prepare My Meal", "Get Me A Drink" };
     int[] questReward = new int[2] { 2, 1 };
     string[] questDescription = new string[2]
-    {
-        " a. Get empty Plate \n b. Prepare Meal \n c. Deliver Meal ",
-        " a. Get empty glass \n b. Pour wine \n c. Deliver wine "
-    };
+    { " a. Get empty Plate \n b. Prepare Meal \n c. Deliver Meal ",
+      " a. Get empty glass \n b. Pour wine \n c. Deliver wine " };
 
     public UnityEngine.UI.Image questPanel;
     public TMP_Text questTxt;
@@ -34,6 +32,7 @@ public class PlayerManager : MonoBehaviour
     public int Days;    //needs to be carried over to next scene
     public int QuestPoints; //needs to be carried over to next scene
     public int EvidencePoints;  //needs to be carried over to next scene
+    bool questCompleted = false; // Flag to track if the current quest is completed
 
     public TMP_Text DaysTxt;
     public TMP_Text QPTxt;
@@ -62,14 +61,10 @@ public class PlayerManager : MonoBehaviour
 
     System.Random random = new System.Random();
 
-
-
-
-    // Start is called before the first frame update
-
     void Start()
     {
     }
+
     void OnEnable()
     {
         if (Days == 0)
@@ -111,14 +106,17 @@ public class PlayerManager : MonoBehaviour
         activeQuest = random.Next(0, 2);
 
         inventoryObject = PlayerPrefs.GetString("InventoryObject");
-        // inventoryObject = PlayerPrefs.GetString("inventoryObject", null);
     }
+
     void QuestAssignment()
     {
-        int[] questIndexes = GetRandomQuestIndexes();
-
-        activeQuest = questIndexes[0]; // Assign the first quest
-        questTxt.text = questName[activeQuest] + "\n" + questDescription[activeQuest];
+        if (recievingQuest)
+        {
+            activeQuest = Random.Range(0, questName.Length);
+            questTxt.text = questName[activeQuest] + "\n" + questDescription[activeQuest];
+            questPanel.enabled = true;
+            questTxt.enabled = true;
+        }
     }
 
     int[] GetRandomQuestIndexes()
@@ -127,8 +125,6 @@ public class PlayerManager : MonoBehaviour
         indexes.Shuffle(); // Shuffle the list to get random indexes
         return indexes.GetRange(0, 2).ToArray(); // Get the first 2 indexes after shuffling
     }
-    
-
     // Update is called once per frame
     void Update()
     {
@@ -173,6 +169,17 @@ public class PlayerManager : MonoBehaviour
             assasinationIndex = 1; //Basic Poison
             HideDialoguePanel();
             makingDecision = false;
+        }
+        // Check if the player has completed the quest and is in the Throne Room
+        if (questCompleted && colliding && collider.gameObject.tag == "#throne")
+        {
+            // Award quest points and reset the quest completion flag
+            QuestPoints += questReward[activeQuest];
+            questCompleted = false;
+
+            // Hide the quest panel and text
+            questPanel.enabled = false;
+            questTxt.enabled = false;
         }
 
         // Check if player pressed E on the book in the throne room to start the next day
@@ -284,6 +291,7 @@ public class PlayerManager : MonoBehaviour
                 //replace Empty Plate with FullPlate
                 RemoveFromInventory(inventoryObject);
                 AddToInventory("FullPlate");
+                PlayerPrefs.SetString("inventoryObject", "FullPlate");
             }
             else
             {
@@ -317,12 +325,14 @@ public class PlayerManager : MonoBehaviour
                 //replace full Plate with PoisonedFullPlate
                 RemoveFromInventory(inventoryObject);
                 AddToInventory("PoisonedFullPlate");
+                PlayerPrefs.SetString("inventoryObject", "PoisonedFullPlate");
             }
             if (inventoryObject == "FullGlass")    //checks if player has full glass
             {
                 //replace Empty Plate with PoisonedFullGlass
                 RemoveFromInventory(inventoryObject);
                 AddToInventory("PoisonedFullGlass");
+                PlayerPrefs.SetString("inventoryObject", "PoisonedFullGlass");
             }
         }
 
@@ -334,7 +344,7 @@ public class PlayerManager : MonoBehaviour
             {
                 RecieveQuest();
             }
-            if (activeQuest == 0)
+            if (activeQuest == 1)
             {
                 if (inventoryObject == "FullPlate")
                 {
@@ -366,6 +376,19 @@ public class PlayerManager : MonoBehaviour
                     activeQuest = random.Next(0, 2);
                 }
             }
+            if (collider.gameObject.tag == "#throne")
+            {
+                if (activeQuest == 0 && inventoryObject == "FullPlate")
+                {
+                    RemoveFromInventory("FullPlate");
+                    questCompleted = true; // Set quest as completed
+                }
+                else if (activeQuest == 1 && inventoryObject == "FullGlass")
+                {
+                    RemoveFromInventory("FullGlass");
+                    questCompleted = true; // Set quest as completed
+                }
+            }
         }
         if (collider.gameObject.tag == "#wine")     //checks which object the player is colliding with
         {
@@ -374,6 +397,7 @@ public class PlayerManager : MonoBehaviour
                 //replace Empty Plate with FullGlass
                 RemoveFromInventory(inventoryObject);
                 AddToInventory("FullGlass");
+                PlayerPrefs.SetString("inventoryObject", "FullGlass");
             }
         }
         if (collider.gameObject.tag == "#glass")     //checks which object the player is colliding with
@@ -381,6 +405,7 @@ public class PlayerManager : MonoBehaviour
             RemoveFromInventory(inventoryObject);
             AddToInventory("EmptyGlass");
             //Add Empty glass to inventory
+            PlayerPrefs.SetString("inventoryObject", "EmptyGlass");
         }
         if (collider.gameObject.tag == "#plate")     //checks which object the player is colliding with
         {
