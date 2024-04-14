@@ -17,6 +17,7 @@ TagManager:
   - '#storageDoor'
   - '#kitchenDoor'
   - '#throneRoomDoor'
+  - '#book'
   layers:
   - Default
   - TransparentFX

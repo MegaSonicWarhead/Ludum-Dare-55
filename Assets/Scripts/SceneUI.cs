@@ -10,7 +10,7 @@ public class SceneUI : MonoBehaviour
 
     void Start()
     {
-        currentQuest = Random.Range(1, questAmount); // Change 2 to the total number of quests available
+       // currentQuest = Random.Range(1, questAmount); // Change 2 to the total number of quests available
     }
 
     public void StartGame()
@@ -19,7 +19,8 @@ public class SceneUI : MonoBehaviour
     }
 
     void Update()
-    {
+    {   
+        /*
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (SceneManager.GetActiveScene().name == "Throne Room")
@@ -39,5 +40,6 @@ public class SceneUI : MonoBehaviour
                 SceneManager.LoadScene("Throne Room"); // Load the Throne Room scene when the player interacts with the door in the Kitchen
             }
         }
+        */
     }
 }
