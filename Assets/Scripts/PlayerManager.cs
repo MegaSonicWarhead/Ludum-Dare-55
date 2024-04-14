@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour
     public int QuestPoints;             //needs to be carried over to next scene
     public int EvidencePoints;          //needs to be carried over to next scene
     public int numberOfRuns = 0;        //carry over
-
+    public QuestManager questManager; // Reference to your QuestManager component
     bool makingDecision = false;    //carried over
     bool openDialogue = false;      //carried over
     bool recievingQuest = false;
@@ -52,6 +52,7 @@ public class PlayerManager : MonoBehaviour
     public UnityEngine.UI.Image EmptyGlassImg;
     public UnityEngine.UI.Image FullGlassImg;
     public UnityEngine.UI.Image PoisonedGlassImg;
+    public UnityEngine.UI.Image dialoguePanel;
 
     public TMP_Text actionLabel;
 
@@ -76,6 +77,24 @@ public class PlayerManager : MonoBehaviour
 
     private void OnEnable()
     {
+        if (EmptyPlateImg != null)
+        {
+            EmptyPlateImg.enabled = false;
+        }
+        if (inventoryObject?.Equals("EmptyPlate") ?? false)
+        {
+            Debug.Log("inventoryObject is: " + inventoryObject);
+        }
+        // Instantiate quests and set their properties
+        Quest quest1 = gameObject.AddComponent<Quest>();
+        quest1.SetQuest("Prepare My Meal", "a. Get empty Plate \n b. Prepare Meal \n c. Deliver Meal", 2, 1);
+
+        Quest quest2 = gameObject.AddComponent<Quest>();
+        quest2.SetQuest("Get Me A Drink", "a. Get empty glass \n b. Pour wine \n c. Deliver wine", 1, 1);
+
+        // Add quests to the quest manager
+        //questManager.quests = new Quest[] { quest1, quest2 };
+
         // Load saved data from PlayerPrefs on scene start
         LoadPlayerData();
 
@@ -466,13 +485,16 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    void HideDialoguePanel()
+    public void HideDialoguePanel()
     {
-        DialoguePanel.enabled = false;
-        InteractionNameTxt.enabled = false;
-        DialogueTxt.enabled = false;
-
-        openDialogue = false;
+        if (dialoguePanel != null)
+        {
+            dialoguePanel.enabled = false;
+        }
+        else
+        {
+            Debug.LogWarning("Dialogue panel is null.");
+        }
     }
 
     void ShowQuestPanel()

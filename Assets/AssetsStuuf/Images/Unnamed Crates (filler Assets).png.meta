@@ -298,7 +298,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Unnamed Crates (filler Assets)_0: 5774406701881200080
+      Unnamed Crates (filler Assets)_1: 5191136061386527727
+      Unnamed Crates (filler Assets)_2: -2365534131716100888
+      Unnamed Crates (filler Assets)_3: -7690674916034972793
+      Unnamed Crates (filler Assets)_4: 720131756705159047
+      Unnamed Crates (filler Assets)_5: 9155118046055472984
+      Unnamed Crates (filler Assets)_6: 3573611814949333003
+      Unnamed Crates (filler Assets)_7: 5098502026214484077
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
