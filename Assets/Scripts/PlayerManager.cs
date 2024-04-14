@@ -77,14 +77,14 @@ public class PlayerManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if (EmptyPlateImg != null)
-        {
-            EmptyPlateImg.enabled = false;
-        }
-        if (inventoryObject?.Equals("EmptyPlate") ?? false)
-        {
-            Debug.Log("inventoryObject is: " + inventoryObject);
-        }
+        //if (EmptyPlateImg != null)
+        //{
+        //    EmptyPlateImg.enabled = false;
+        //}
+        //if (inventoryObject?.Equals("EmptyPlate") ?? false)
+        //{
+        //    Debug.Log("inventoryObject is: " + inventoryObject);
+        //}
         // Instantiate quests and set their properties
         Quest quest1 = gameObject.AddComponent<Quest>();
         quest1.SetQuest("Prepare My Meal", "a. Get empty Plate \n b. Prepare Meal \n c. Deliver Meal", 2, 1);
@@ -270,9 +270,12 @@ public class PlayerManager : MonoBehaviour
         colliding = false;
 
         HideDialoguePanel();
-
-        //label with description must dissapear
-        actionLabel.enabled = false;
+        if (actionLabel != null)
+        {
+            //label with description must dissapear
+            actionLabel.enabled = false;
+        }
+       
     }
 
     void Interact()
@@ -309,10 +312,12 @@ public class PlayerManager : MonoBehaviour
         {
             //interact with king, by giving recieving quest or ending quest etc
             //subtract certain objects from inventory
-            if (activeQuest == (numberOfQuests + 1) && dailyQuests < 2)  //if player currently doesnt have a quest
+            //if (activeQuest == numberOfQuests + 1) && dailyQuests < 2)  //if player currently doesnt have a quest
+            if ( dailyQuests < 2)  //if player currently doesnt have a quest
             {
                 RecieveQuest();
             }
+
             else if (activeQuest == 0)
             {
                 if (inventoryObject == "FullPlate")

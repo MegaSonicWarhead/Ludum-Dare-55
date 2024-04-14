@@ -6,7 +6,7 @@ public class DayManager : MonoBehaviour
 {
     private int currentDay = 0;
     public QuestManager questManager;
-    public GameObject someObject; // Example GameObject that needs initialization
+    //public GameObject someObject; // Example GameObject that needs initialization
 
 
     public int GetCurrentDay()
@@ -17,17 +17,17 @@ public class DayManager : MonoBehaviour
     void Start()
     {
         // Check if the object is not null before using it
-        if (someObject != null)
-        {
-            // Example: Accessing the current quest's name
-            string currentQuestName = questManager.GetCurrentQuest().questName;
-            Debug.Log("Current Quest Name: " + currentQuestName);
-        }
-        else
-        {
-            Debug.LogError("someObject is null!");
-        }
-        
+        //if (someObject != null)
+        //{
+            
+        //}
+        //else
+        //{
+        //    Debug.LogError("someObject is null!");
+        //}
+        // Example: Accessing the current quest's name
+        string currentQuestName = questManager.GetCurrentQuest().questName;
+        Debug.Log("Current Quest Name: " + currentQuestName);
     }
 
     public void StartNextDay()

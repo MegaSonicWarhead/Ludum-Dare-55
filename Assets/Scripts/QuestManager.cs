@@ -9,12 +9,15 @@ public class QuestManager : MonoBehaviour
 
     void Start()
     {
+        
+    }
+    private void OnEnable()
+    {
         // Initialize your quests
         quests = new Quest[2]; // Assuming you have 2 quests to start with
         SetQuest(0, "Prepare My Meal", "a. Get empty Plate \n b. Prepare Meal \n c. Deliver Meal", 2, 1);
         SetQuest(1, "Get Me A Drink", "a. Get empty glass \n b. Pour wine \n c. Deliver wine", 1, 1);
     }
-
     public void SetCurrentQuestIndex(int index)
     {
         currentQuestIndex = index;

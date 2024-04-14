@@ -119,11 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &174773188 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8079291181563513206, guid: 63f600dcc0d44e84e87319df26522960, type: 3}
-  m_PrefabInstance: {fileID: 1422477999}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &177883643
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -352,6 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quests:
+  - {fileID: 1290841880}
   - {fileID: 1290841880}
 --- !u!4 &664442761
 Transform:
@@ -675,7 +671,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questManager: {fileID: 664442760}
-  someObject: {fileID: 174773188}
 --- !u!4 &1219014084
 Transform:
   m_ObjectHideFlags: 0
@@ -1046,7 +1041,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7924154811472668602, guid: 63f600dcc0d44e84e87319df26522960, type: 3}
   m_PrefabInstance: {fileID: 1422477999}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 174773188}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}

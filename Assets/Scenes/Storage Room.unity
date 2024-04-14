@@ -660,7 +660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e3d4716bc11e9146b0b55bfa242123f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questManager: {fileID: 0}
+  questManager: {fileID: 1325625245}
 --- !u!4 &1097874368
 Transform:
   m_ObjectHideFlags: 0
@@ -887,7 +887,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quests:
-  - {fileID: 0}
+  - {fileID: 59998962}
 --- !u!4 &1325625246
 Transform:
   m_ObjectHideFlags: 0
@@ -987,12 +987,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e40e599974612d458a5f8adce4a6d47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayText: {fileID: 0}
-  questPointsText: {fileID: 0}
-  evidencePointsText: {fileID: 0}
-  dayManager: {fileID: 0}
-  questPointsManager: {fileID: 0}
-  evidencePointsManager: {fileID: 0}
+  dayText: {fileID: 962091342}
+  questPointsText: {fileID: 1842834917}
+  evidencePointsText: {fileID: 703775856}
+  dayManager: {fileID: 1097874367}
+  questPointsManager: {fileID: 1352198280}
+  evidencePointsManager: {fileID: 284525794}
 --- !u!4 &1416769648
 Transform:
   m_ObjectHideFlags: 0
@@ -1385,6 +1385,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1538381799}
     - target: {fileID: 2299997297383364291, guid: 3db068146b18e63468a0fbf5baa1e6d5, type: 3}
+      propertyPath: questManager
+      value: 
+      objectReference: {fileID: 1325625245}
+    - target: {fileID: 2299997297383364291, guid: 3db068146b18e63468a0fbf5baa1e6d5, type: 3}
       propertyPath: DialoguePanel
       value: 
       objectReference: {fileID: 1893654554}
@@ -1396,6 +1400,10 @@ PrefabInstance:
       propertyPath: EmptyPlateImg
       value: 
       objectReference: {fileID: 2127158322}
+    - target: {fileID: 2299997297383364291, guid: 3db068146b18e63468a0fbf5baa1e6d5, type: 3}
+      propertyPath: dialoguePanel
+      value: 
+      objectReference: {fileID: 1893654554}
     - target: {fileID: 2299997297383364291, guid: 3db068146b18e63468a0fbf5baa1e6d5, type: 3}
       propertyPath: PoisonedGlassImg
       value: 

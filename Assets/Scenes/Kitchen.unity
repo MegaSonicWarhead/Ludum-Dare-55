@@ -508,7 +508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e3d4716bc11e9146b0b55bfa242123f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questManager: {fileID: 0}
+  questManager: {fileID: 258494851}
 --- !u!4 &241339189
 Transform:
   m_ObjectHideFlags: 0
@@ -553,12 +553,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e40e599974612d458a5f8adce4a6d47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayText: {fileID: 0}
-  questPointsText: {fileID: 0}
-  evidencePointsText: {fileID: 0}
-  dayManager: {fileID: 0}
-  questPointsManager: {fileID: 0}
-  evidencePointsManager: {fileID: 0}
+  dayText: {fileID: 107384833}
+  questPointsText: {fileID: 107384832}
+  evidencePointsText: {fileID: 107384831}
+  dayManager: {fileID: 241339188}
+  questPointsManager: {fileID: 1103155714}
+  evidencePointsManager: {fileID: 1948893589}
 --- !u!4 &249953813
 Transform:
   m_ObjectHideFlags: 0
@@ -604,7 +604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quests:
-  - {fileID: 0}
+  - {fileID: 1095930}
 --- !u!4 &258494852
 Transform:
   m_ObjectHideFlags: 0
@@ -1490,6 +1490,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 107384829}
     - target: {fileID: 2299997297383364291, guid: 3db068146b18e63468a0fbf5baa1e6d5, type: 3}
+      propertyPath: questManager
+      value: 
+      objectReference: {fileID: 258494851}
+    - target: {fileID: 2299997297383364291, guid: 3db068146b18e63468a0fbf5baa1e6d5, type: 3}
       propertyPath: DialoguePanel
       value: 
       objectReference: {fileID: 107384823}
@@ -1501,6 +1505,10 @@ PrefabInstance:
       propertyPath: EmptyPlateImg
       value: 
       objectReference: {fileID: 107384830}
+    - target: {fileID: 2299997297383364291, guid: 3db068146b18e63468a0fbf5baa1e6d5, type: 3}
+      propertyPath: dialoguePanel
+      value: 
+      objectReference: {fileID: 107384823}
     - target: {fileID: 2299997297383364291, guid: 3db068146b18e63468a0fbf5baa1e6d5, type: 3}
       propertyPath: PoisonedGlassImg
       value: 
