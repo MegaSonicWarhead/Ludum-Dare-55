@@ -325,10 +325,10 @@ public class PlayerManager : MonoBehaviour
                 {
                     CompleteQuest("FullPlate");
                 }
-                if (inventoryObject == "PoisonedFullPlate")
+                else if (inventoryObject == "PoisonedFullPlate")
                 {
-                    CompleteQuest("PoisonedFullPlate");
                     CalculateAssassination();
+                    CompleteQuest("PoisonedFullPlate");
                 }
             }
             if (activeQuest == 1)
@@ -337,10 +337,10 @@ public class PlayerManager : MonoBehaviour
                 {
                     CompleteQuest("FullGlass");
                 }
-                if (inventoryObject == "PoisonedFullGlass")
+                else if (inventoryObject == "PoisonedFullGlass")
                 {
-                    CompleteQuest("PoisonedFullGlass");
                     CalculateAssassination();
+                    CompleteQuest("PoisonedFullGlass");
                 }
             }
             else if (dailyQuests > 2)
@@ -535,10 +535,10 @@ public class PlayerManager : MonoBehaviour
             Debug.Log("You were not successful in killing the king");
         }
 
-        assasinationIndex = 2;
 
         //calculate EP
         int EpAdded = random.Next(assasinationStats[2, assasinationIndex], assasinationStats[3, assasinationIndex]);
+        assasinationIndex = 2;
         EvidencePoints = EvidencePoints + EpAdded;
     }
 
